@@ -1,9 +1,8 @@
-TestTWF Website
-===============
+TestTWF Staging Website
+=======================
 
-This is the centralized repository for all documentation pertaining to the W3C Open Web Platform testing effort.
-
-It is deployed on [testthewebforward.org](http://testthewebforward.org).
+This is the staging area for [testthewebforward.org](http://testthewebforward.org).
+Staging is deployed on [www.testthewebforward-staging.org](http://www.testthewebforward-staging.org)
 
 Contributing
 ------------

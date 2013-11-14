@@ -1,0 +1,87 @@
+td {
+	padding: 3px 10px;
+    text-align: right;
+}
+
+td:nth-child(1) {
+    text-align: left;
+}
+
+.hide-no-reqs .no-req {
+	display:none;
+}
+
+.hide-details tr .detailed-data {
+    display: none;
+}
+
+.show-graph tr .data {
+  display: none;
+}
+
+.show-data tr .graph {
+  display: none;
+}
+
+.detailed-data {
+	color: #666;
+	font-size: 0.8em;
+}
+
+.coverage-progress-bar-container {
+	border: 1px solid black;
+	padding: 1px;
+	height: 14px;
+	background-color: #fff;
+}
+
+.coverage-progress-bar {
+	height: 10px;
+	width: 0px;
+	float: left;
+	background-color: #666;
+}
+
+.coverage-progress-bar-review {
+	height: 10px;
+	width: 0px;
+	float: left;
+	background-color: #ccc;
+}
+
+.coverage-progress-bar-todo {
+	height: 10px;
+	width: 0px;
+	float: left;
+}
+
+
+.hide-level-2 tr.level-2,
+.hide-level-3 tr.level-3 {
+    display: none;
+}
+
+tr.level-2 a {
+	margin-left: 2em;
+}
+
+tr.level-3 a {
+	margin-left: 4em;
+}
+
+.spec-view #spec-controls,
+.summary-view #summary-controls {
+    display: block;
+}
+
+.spec-view #summary-controls,
+.summary-view #spec-controls {
+    display: none;
+}
+
+.rec, .pr, .high { background-color: #7f7; color: #666; }
+.cr, .lcwd, .med-high { background-color: #cf7; color: #666; }
+.wd, .med { background-color: #ff7; color: #666; }
+.fpwd, .med-low { background-color: #fc7; color: #666; }
+.ed, .low { background-color: #f77; color: #666; }
+

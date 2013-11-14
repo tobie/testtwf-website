@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  {% if page.title %}
+    <title>{{page.title}} | Test the Web Forward</title>
+  {% else %}
+    <title>Test the Web Forward</title>
+  {% endif %}
+  <!--[if lt IE 9]>
+    <script src="/vendor/html5shim.js"></script>
+  <![endif]-->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/styles/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" href="/styles/glyphicons.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="/styles/pygments.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="/styles/custom.css" type="text/css" media="screen">
+  <link rel="alternate" type="application/rss+xml" href="/feed.rss" title="Test the Web Forward Blog RSS feed">
+  <link rel='stylesheet' href='coverage.css'>
+{% raw %}
+  <script type="text/template" id="table-template" charset="utf-8">
+    <div class="spec" data-short-name={{model.shortName}}>
+      <h2>{{ model.title }}<small> - [<a href='{{ model.href }}'>document</a>]</small></h2>
+      <p>There are <strong>{{ formatNumber missingTests }}</strong> missing tests out of <strong>{{ formatNumber desiredTests }}</strong> desired tests. Additionally, <strong>{{ formatNumber testsAwaitingReview }}</strong> are awaiting review, of which an estimated <strong>{{ formatNumber testsPassingReview }}</strong> will pass review.
+       Current coverage is <strong>{{ formatNumber percent }}%</strong>.<br>
+       The overall estimated time needed to develop a test suite and review it for this specification is <strong>{{ formatTime totalTime }}</strong>.</p>
+      <table data-short-name='{{ model.shortName }}' class="table table-hover">
+        <tr>
+          <th>Section</th>
+          <th class="data detailed-data">Norm. stat.</th>
+          <th class="data detailed-data">Algo steps</th>
+          <th class="data detailed-data">WebIDL LOC</th>
+          <th class="data detailed-data">Prop Defs</th>
+          <th class="data">Existing Tests</th>
+          <th class="data">Desired Tests</th>
+          <th class="data detailed-data">Exceeding Tests</th>
+          <th class="data">Coverage (%)</th>
+          <th class="graph">Graph</th>
+        </tr>
+        {{#each children}}
+          <tr class="{{ className }}">
+            <td class='{{ className }}'><a href='{{ href }}'>{{ name }}</a></td>
+            <td class="data detailed-data">{{ formatNumber normativeStatements }}</td>
+            <td class="data detailed-data">{{ formatNumber algorithmicSteps }}</td>
+            <td class="data detailed-data">{{ formatNumber idlComplexity }}</td>
+            <td class="data detailed-data">{{ formatNumber propdef }}</td>
+            <td class="data">{{ formatNumber existingTests }}</td>
+            <td class="data">{{ formatNumber desiredTests }}</td>
+            <td class="data detailed-data">{{ formatNumber exceedingTests }}</td>
+            <td class="data {{ percentToValue percent }}">{{ formatNumber percent }}</td>
+            <td class="graph" style="width: 75%">
+              <div>
+                <div class="coverage-progress-bar-container" style='width:{{ progressBar.width }}%'>
+                  <div>
+                    <div class="coverage-progress-bar" style='width:{{ progressBar.reviewed }}%'></div>
+                    <div class="coverage-progress-bar-todo auto-tooltip" data-title="{{ missingTests }} tests missing." style='width:{{ progressBar.todo }}%'></div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        {{/each}}
+      </table>
+    </div>
+  </script>
+
+  <script type="text/template" id="summary-template" charset="utf-8">
+      <h2>Specs</h2>
+      <table class="table table-hover">
+        <tr>
+          <th>Spec</th>
+          <th class="data">Existing Tests</th>
+          <th class="data detailed-data">Awaiting Review</th>
+          <th class="data detailed-data">Passing Review</th>
+          <th class="data">Missing Tests</th>
+          <th class="data">Desired Tests</th>
+          <th class="data detailed-data">Exceeding Tests</th>
+          <th class="data">Coverage&nbsp;(%)</th>
+          <th class="data">Dev. Time</th>
+          <th class="data">Review Time</th>
+          <th class="data">Total Time</th>
+          <th class="graph">Graph</th>
+        </tr>
+        {{#each children}}
+          <tr>
+            <td><a href='{{ href }}' class="auto-tooltip" data-title="{{ model.title }}">{{ model.id }}</a>{{#if model.refTestBased}}*{{/if}}<span class="label pull-right {{ lowerCase model.status }} auto-tooltip" data-title="{{ statusText }}">{{ model.status }}</span></td>
+            <td class="data">{{ formatNumber existingTests }}</td>
+            <td class="data detailed-data">{{ formatNumber testsAwaitingReview }}</td>
+            <td class="data detailed-data">{{ formatNumber testsPassingReview }}</td>
+            <td class="data">{{ formatNumber missingTests  }}</td>
+            <td class="data">{{ formatNumber desiredTests }}</td>
+            <td class="data detailed-data">{{ formatNumber exceedingTests }}</td>
+            <td class="data {{ percentToValue percent }}">{{ formatNumber percent }}</td>
+            <td class="data"><span class="auto-tooltip" data-title="{{ formatTimeLong testTime }}">{{ formatTime testTime }}</span></td>
+            <td class="data"><span class="auto-tooltip" data-title="{{ formatTimeLong reviewTime }}">{{ formatTime reviewTime }}</span></td>
+            <td class="data"><span class="auto-tooltip" data-title="{{ formatTimeLong totalTime }}">{{ formatTime totalTime }}</span></td>
+            <td class="graph" style="width: 75%">
+              <div>
+                <div class="coverage-progress-bar-container" style='width:{{ progressBar.width }}%'>
+                  <div>
+                    <div class="coverage-progress-bar" style='width:{{ progressBar.reviewed }}%'></div>
+                    <div class="coverage-progress-bar-review" style='width:{{ progressBar.needReview }}%'></div>
+                    <div class="coverage-progress-bar-todo auto-tooltip" data-title="Estimated time to complete test suite development: {{ formatTimeLong totalTime }}" style='width:{{ progressBar.todo }}%'></div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        {{/each}}
+        <tr>
+          <td>TOTAL</td>
+          <td class="data">{{ formatNumber existingTests }}</td>
+          <td class="data detailed-data">{{ formatNumber testsAwaitingReview }}</td>
+          <td class="data detailed-data">{{ formatNumber testsPassingReview }}</td>
+          <td class="data">{{ formatNumber missingTests  }}</td>
+          <td class="data">{{ formatNumber desiredTests }}</td>
+          <td class="data detailed-data">{{ formatNumber exceedingTests }}</td>
+          <td class="data {{ percentToValue percent }}">{{ formatNumber percent }}</td>
+          <td class="data">{{ formatTime testTime }}</td>
+          <td class="data">{{ formatTime reviewTime }}</td>
+          <td class="data" title="{{ totalTime }}">{{ formatTime totalTime }}</td>
+          <td class="graph"></td>
+        </tr>
+      </table>
+  </script>
+
+  <script type="text/template" id="other-specs-template" charset="utf-8">
+      <h2>{{ title }}</h2>
+      <p>{{ message }}</p>
+      <ul>
+        {{#each children}}
+          <li>
+            [<a href='{{ href }}' title='{{ title }}'>{{ id }}</a>]
+          </li>
+        {{/each}}
+      </ul>
+  </script>
+{% endraw %}
+</head>
+<body class="{{ page.section }} {{ page.type }} hide-reqs hide-details show-data">
+  
+  <div class="container">
+    {% include nav.html %}
+
+    {% if page.outdated %}
+      <div class="alert alert-danger">
+        <p><span class="glyphicon glyphicon-warning_sign"></span> The content of this page is outdated.</p>
+      </div>
+    {% endif %}
+    <div class="row">
+      <div role="main" class="col-md-9">
+        {{ content }}
+      </div>
+      <div role="complementary" class=col-md-3>
+          <form action="" method="get" id="form" accept-charset="utf-8">
+              <div class="panel-group" data-spy="affix" data-offset-top="169" data-offset-bottom="50">
+                  {% include sidebars/coverage.html %}
+              </div>
+          </form>
+      </div>
+    </div>
+    
+  {% include footer.html %}
+  <script src="/vendor/jquery-1.7.1.js"></script>
+  <script src="/scripts/bootstrap.min.js"></script>
+  <script src="./handlebars.js"></script>
+  <script src='./coverage.js'></script>
+  <script>
+  $.getJSON("specs.json", function (data) {
+      var keys = Object.keys(data);
+      //$.getJSON("https://specref.jit.su/bibrefs?refs=" + keys.join(','), function (specrefs) {
+      $.getJSON("http://localhost:5000/bibrefs?refs=" + keys.join(','), function (specrefs) {
+        cover(keys.map(function(k) {
+            var spec = data[k];
+            spec.id = k;
+            var ref = specrefs[k];
+            while (ref.aliasOf) {
+              ref = specrefs[ref.aliasOf];
+            }
+            for (var prop in ref) {
+                spec[prop] = ref[prop]
+            }
+            return spec;
+        }), $("#output"), function() {
+            $('.auto-tooltip').tooltip();
+        });
+      });
+
+  });
+  </script>
+  <script>
+    $('.auto-popover').popover();
+  </script>
+
+
+  
+</body>
+</html>

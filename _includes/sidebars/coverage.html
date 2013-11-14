@@ -1,0 +1,113 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Display</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="radio">
+                <label><input type='radio' name='display' value='data' checked> Show data</label>
+            </div>
+            <div class="radio">
+                <label><input type='radio' name='display' value='graph'> Show graphs</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="spec-controls" class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Section depth</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <p class="help-block">Note the report analyses sections at a maximal depth of 3.</p>
+            <div class="radio">
+              <label><input type='radio' name='level' value='1' checked> Level 1</label>
+            </div>
+            <div class="radio">
+              <label><input type='radio' name='level' value='2'> Level 2</label>
+            </div>
+            <div class="radio">
+              <label><input type='radio' name='level' value='3'> Level 3</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label><input type='checkbox' name='show-all' id="show-all"> show sections which don't have requirements.</label>
+        </div>
+        <div class="form-group">
+            <label><input type='checkbox' name='show-details' id="show-details"> Show detailed coverage data.</label>
+        </div>
+    </div>
+</div>
+
+<div id="summary-controls" class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Table Sort</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="sort-by">Sort by</label>
+            <select name='sort-by' id='sort-by'>
+                <option value=id>spec short name</option>
+                <option value=status>rec track status</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Desired number of test</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="rfc2119">Tests per RFC2119 keyword:</label>
+            <input type='number' name='rfc2119' id='rfc2119' size='4' value='4' min='0'>
+        </div>
+        <div class="form-group">
+            <label for="algos">Tests per algorithm step:</label>
+            <input type='number' name='algos' id='algos' size='4' value='2' min='0'>
+        </div>
+        <div class="form-group">
+            <label for="idl">Tests per IDL LOC:</label>
+            <input type='number' name='idl' id='idl' size='4' value='5' min='0'>
+        </div>
+        <div class="form-group">
+            <label for="assume-idl">Percent coverage of IDL LOC provided by idlharness:</label>
+            <input type='number' name='assume-idl' id="assume-idl" size='4' value='85' min='0' max='100'>
+        </div>
+        <div class="form-group">
+            <label for="propdef">Tests per CSS property definition (propdef) LOC:</label>
+            <input type='number' name='propdef' id='propdef' size='4' value='8' min='0'>
+        </div>
+        <div class="form-group">
+            <label for="review-success">Percentage of tests which will pass review</label>
+            <input type='number' name='review-success' id='review-success' size='4' value='50' min='0' max='100'>%
+        </div>
+        <div class="form-group">
+            <label for="reftest-factor">Reftest multiplier [<a href="#" class="auto-popover" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="This is the factor by which to multiply the requirements for normative and algo-based tests are essentially comprised of ref-test. These specs are marked with an asterisk (*).">?</a>]</label>
+            <input type='number' name='reftest-factor' id='reftest-factor' size='4' value='2' min='0'>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Time Estimator</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="test-time">Average time required to develop a test (in minutes):</label>
+            <input type='number' name='test-time' id='test-time' size='4' value='60' min='0'>
+        </div>
+        <div class="form-group">
+            <label for="review-time">Average time required to review a test (in minutes):</label>
+            <input type='number' name='review-time' id='review-time' size='4' value='30' min='0'>
+        </div>
+        <div class="form-group">
+            <label for="idl">Percentage by which review can be diminished thanks to new tooling:</label>
+            <input type='number' name='assume-tooling' id="assume-tooling" size='4' value='50'  min='0' max='100'>
+        </div>
+    </div>
+</div>
+
